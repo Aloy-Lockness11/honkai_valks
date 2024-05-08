@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { fetchAllValkyries } from '../pages/api/connection'; // Adjust the import path as necessary
 
 interface Valkyrie {
     ValkyrieID: string;
@@ -9,23 +8,26 @@ interface Valkyrie {
     HireCost: number;
     Power: number;
     Defence: number;
-    ImageName: string; // Add the ImageName property
+    ImageName: string;
 }
 
 const ValkyrieComponent = () => {
-    const [valkyries, setValkyries] = useState<Valkyrie[]>([]); // Provide the type for valkyries
+    const [valkyries, setValkyries] = useState<Valkyrie[]>([]); 
 
     useEffect(() => {
         const loadValkyries = async () => {
             try {
-                const data = await fetchAllValkyries();
-                const valkyrieData = data as Valkyrie[]; // Convert the data to Valkyrie[] type
-                setValkyries(valkyrieData);
-            } catch (error) {
-                console.error('Failed to fetch valkyries:', error);
+                const response = await fetch('/api/valkyries');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                setValkyries(data);
+            } catch (error: any) { // Explicitly type 'error' as 'any'
+                console.error('Failed to fetch valkyries:', error.message);
             }
         };
-
+    
         loadValkyries();
     }, []);
 

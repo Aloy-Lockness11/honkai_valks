@@ -1,11 +1,11 @@
 import { sql } from '@vercel/postgres';
 
-export async function fetchAllValkyries() {
+export default async function handler(req:any, res:any) {
     try {
         const data = await sql`SELECT * FROM Valkyries`;
-        return data.rows;
+        res.status(200).json(data.rows);
     } catch (error) {
         console.error('Database Error:', error);
-        throw new Error('Failed to fetch Valkyries data.');
+        res.status(500).json({ message: 'Failed to fetch Valkyries data.' });
     }
 }
