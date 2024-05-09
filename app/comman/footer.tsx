@@ -3,7 +3,7 @@ import '../customTailCss/navbar.css';
 
 const Footer: React.FC = () => {
     return (
-        <div className="bg-slate-800 text-white font-Pixelify_Sans w-full text-center">
+        <div className="bottom-0 bg-slate-800 text-white font-Pixelify_Sans w-full text-center  ">
             <p>Note:</p>
             <p>
                 I Own None of these chararters and some image assets on this website

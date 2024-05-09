@@ -1,6 +1,7 @@
 import { sql } from '@vercel/postgres';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req:any, res:any) {
+export default async function handler(req: NextApiRequest,res: NextApiResponse) {
     try {
         const data = await sql`SELECT * FROM Valkyries`;
         res.status(200).json(data.rows);
